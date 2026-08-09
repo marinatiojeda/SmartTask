@@ -16,10 +16,16 @@ public class GestorTareas {
      * @param prioridad Nivel de prioridad (Alta, Media, Baja).
      */
     public void agregarTarea(String nombre, String prioridad) {
-        Tarea nuevaTarea = new Tarea(contadorId++, nombre, prioridad);
+        Tarea nuevaTarea;
+
+        if (prioridad.equalsIgnoreCase("Alta")) {
+            nuevaTarea = new TareaUrgente(contadorId++, nombre);
+        } else {
+            nuevaTarea = new TareaNormal(contadorId++, nombre, prioridad);
+        }
+
         tareas.add(nuevaTarea);
     }
-
     /**
      * Obtiene una copia con todas las tareas registradas.
      * 
@@ -60,10 +66,10 @@ public class GestorTareas {
     }
 
     /**
-     * Marca una tarea como completed según su ID.
+     * Marca una tarea como completeda según su ID.
      * 
      * @param id Identificador de la tarea.
-     * @return true si la encontró y actualizó, false si no existía.
+     * @return true si la encontró y actualizó, false si no existe.
      */
     public boolean marcarComoCompletada(int id) {
         for (Tarea tarea : tareas) {

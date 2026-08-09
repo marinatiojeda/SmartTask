@@ -4,10 +4,20 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Clase principal que ejecuta la aplicación SmartTask y maneja el menú interactivo.
+ * Clase principal que ejecuta la aplicación SmartTask.
+ * <p>
+ * Se encarga de gestionar el flujo de navegación por consola, capturar 
+ * las entradas del usuario y delegar las operaciones de negocio al {@link GestorTareas}.
+ * </p>
  */
 public class Main {
 
+	/**
+     * Punto de entrada principal de la aplicación.
+     * Inicializa el menú interactivo y procesa las opciones seleccionadas por el usuario.
+     *
+     * @param args Argumentos de la línea de comandos (no utilizados).
+     */
     public static void main(String[] args) {
         GestorTareas gestor = new GestorTareas();
         Scanner scanner = new Scanner(System.in);
@@ -55,6 +65,9 @@ public class Main {
         scanner.close();
     }
 
+    /**
+     * Despliega en consola el menú con las opciones disponibles para el usuario.
+     */
     private static void mostrarMenu() {
         System.out.println("\n--- MENÚ PRINCIPAL ---");
         System.out.println("1. Agregar Tarea");
@@ -64,6 +77,12 @@ public class Main {
         System.out.println("5. Salir");
     }
 
+    /**
+     * Solicita los datos al usuario desde la consola para crear y registrar una nueva tarea.
+     *
+     * @param gestor  Instancia de {@link GestorTareas} encargada de almacenar la tarea.
+     * @param scanner Objeto {@link Scanner} para la lectura de datos por consola.
+     */
     private static void agregarTareaUI(GestorTareas gestor, Scanner scanner) {
         System.out.print("Ingrese el nombre/descripción de la tarea: ");
         String nombre = scanner.nextLine();
@@ -75,6 +94,11 @@ public class Main {
         System.out.println("✅ Tarea agregada con éxito.");
     }
 
+    /**
+     * Muestra la lista de tareas registradas divididas entre activas y completadas.
+     *
+     * @param gestor Instancia de {@link GestorTareas} desde donde se recuperan las listas.
+     */
     private static void listarTareasUI(GestorTareas gestor) {
         System.out.println("\n--- TAREAS ACTIVAS ---");
         List<Tarea> activas = gestor.listarActivas();
@@ -97,6 +121,12 @@ public class Main {
         }
     }
 
+    /**
+     * Solicita el identificador de una tarea y solicita su actualización a estado completada.
+     *
+     * @param gestor  Instancia de {@link GestorTareas} que realiza la búsqueda y cambio de estado.
+     * @param scanner Objeto {@link Scanner} para leer el identificador.
+     */
     private static void marcarCompletadaUI(GestorTareas gestor, Scanner scanner) {
         System.out.print("Ingrese el ID de la tarea a marcar como completada: ");
         try {
@@ -111,6 +141,12 @@ public class Main {
         }
     }
 
+    /**
+     * Solicita el identificador de una tarea y procesa su eliminación del gestor.
+     *
+     * @param gestor  Instancia de {@link GestorTareas} que ejecuta la remoción de la tarea.
+     * @param scanner Objeto {@link Scanner} para leer el identificador.
+     */
     private static void eliminarTareaUI(GestorTareas gestor, Scanner scanner) {
         System.out.print("Ingrese el ID de la tarea a eliminar: ");
         try {
